@@ -93,6 +93,6 @@ curl_close($ch);
 if ($emailCode === 201) {
     echo json_encode(['ok' => true]);
 } else {
-    echo json_encode(['ok' => false, 'error' => 'Error al enviar el email', 'detail' => $emailRes]);
+    echo json_encode(['ok' => false, 'error' => 'Error al enviar el email', 'code' => $emailCode, 'detail' => $emailRes, 'contactCode' => $contactCode, 'contactRes' => $contactRes]);
 }
 ?>
