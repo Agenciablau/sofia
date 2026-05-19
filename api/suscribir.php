@@ -7,7 +7,7 @@ header('Access-Control-Allow-Headers: Content-Type');
 // ── CONFIGURACIÓN ──────────────────────────────────────────
 $BREVO_API_KEY = 'TU_BREVO_API_KEY_AQUI';
 $LISTA_ID      = 3;
-$PDF_URL       = 'https://sofiarenas.es/guia.pdf';
+$PDF_URL       = 'https://sofiarenas.es/giua.pdf';
 $REMITENTE     = ['name' => 'Sofía Arenas', 'email' => 'hola@sofiarenas.es'];
 // ───────────────────────────────────────────────────────────
 
