@@ -8,7 +8,7 @@ header('Access-Control-Allow-Headers: Content-Type');
 $BREVO_API_KEY = 'TU_BREVO_API_KEY_AQUI';
 $LISTA_ID      = 3;
 $PDF_URL       = 'https://sofiarenas.es/giua.pdf';
-$REMITENTE     = ['name' => 'Sofía Arenas', 'email' => 'hola@sofiarenas.es'];
+$REMITENTE     = ['name' => 'Sofía Arenas', 'email' => 'hi@sofiarenas.es'];
 // ───────────────────────────────────────────────────────────
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
