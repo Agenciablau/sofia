@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Descifra tu apego — Guía gratuita de autodiagnóstico emocional de Sofía Arenas. 28 páginas con base clínica real.">
+<title>Descifra tu apego — Guía gratuita · Sofía Arenas</title>
+<link rel="stylesheet" href="css/style.css">
+<style>
+.guia-hero { display: grid; grid-template-columns: 1fr 1fr; min-height: 88vh; }
+.guia-hero-left { background: var(--black); padding: 80px 60px; display: flex; flex-direction: column; justify-content: center; position: relative; overflow: hidden; }
+.guia-hero-left::before { content: 'APEGO'; position: absolute; bottom: -20px; left: -10px; font-family: var(--font-display); font-size: 160px; font-weight: 900; color: rgba(255,255,255,.03); pointer-events: none; line-height: 1; }
+.guia-hero-right { background: var(--lila-dark); padding: 80px 60px; display: flex; flex-direction: column; justify-content: center; }
+.guia-mock { background: var(--black); padding: 36px 28px; margin-bottom: 32px; border-top: 6px solid var(--lila); }
+.guia-mock-title { font-family: var(--font-display); font-size: 28px; font-weight: 900; color: var(--white); line-height: 1.1; margin-bottom: 8px; }
+.guia-mock-sub { font-size: 12px; color: var(--lila); letter-spacing: .12em; text-transform: uppercase; margin-bottom: 16px; }
+.guia-mock-desc { font-size: 13px; color: var(--warm-light); line-height: 1.6; font-weight: 300; }
+.form-box { background: var(--white); padding: 36px 32px; }
+.form-title { font-family: var(--font-display); font-size: 22px; font-weight: 700; margin-bottom: 6px; }
+.form-sub { font-size: 13px; color: var(--warm-gray); margin-bottom: 24px; line-height: 1.5; font-weight: 300; }
+.form-group { margin-bottom: 16px; }
+.form-group label { display: block; font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--warm-gray); margin-bottom: 8px; font-weight: 400; }
+.form-group input { width: 100%; padding: 13px 16px; border: 1.5px solid var(--cream-dark); background: var(--cream); font-family: var(--font-body); font-size: 14px; color: var(--black); font-weight: 300; transition: border-color .2s; outline: none; }
+.form-group input:focus { border-color: var(--lila-dark); }
+.form-submit { width: 100%; padding: 15px; background: var(--black); color: var(--white); font-family: var(--font-body); font-size: 12px; letter-spacing: .12em; text-transform: uppercase; font-weight: 500; cursor: pointer; border: none; transition: background .2s; }
+.form-submit:hover { background: var(--lila-dark); }
+.form-legal { font-size: 10px; color: var(--warm-gray); margin-top: 12px; line-height: 1.5; text-align: center; font-weight: 300; }
+
+.guia-contenido { padding: 100px 60px; background: var(--white); }
+.contenido-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; margin-top: 56px; background: var(--cream-dark); }
+.contenido-card { background: var(--white); padding: 40px 32px; transition: background .25s; }
+.contenido-card:hover { background: var(--lila-light); }
+.contenido-num { font-family: var(--font-display); font-size: 48px; font-weight: 900; color: var(--lila-dark); line-height: 1; margin-bottom: 12px; opacity: .4; }
+.contenido-titulo { font-family: var(--font-display); font-size: 19px; font-weight: 700; line-height: 1.2; margin-bottom: 10px; }
+.contenido-desc { font-size: 13px; color: var(--warm-gray); line-height: 1.65; font-weight: 300; }
+
+.guia-test { padding: 80px 60px; background: var(--black); }
+.test-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+.test-preview { display: flex; flex-direction: column; gap: 8px; }
+.test-q { background: rgba(255,255,255,.06); padding: 16px 18px; border-left: 2px solid var(--lila-dark); font-size: 13px; color: var(--warm-light); line-height: 1.5; font-weight: 300; }
+.test-options { font-size: 10px; color: var(--warm-gray); margin-top: 6px; letter-spacing: .08em; }
+
+.estilos { padding: 80px 60px; background: var(--cream-dark); }
+.estilos-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px; margin-top: 48px; }
+.estilo-card { padding: 32px 24px; }
+.estilo-card:nth-child(1) { background: var(--teal); }
+.estilo-card:nth-child(2) { background: var(--lila-dark); }
+.estilo-card:nth-child(3) { background: #D85A30; }
+.estilo-card:nth-child(4) { background: var(--black-soft); }
+.estilo-titulo { font-family: var(--font-display); font-size: 16px; font-weight: 700; color: var(--white); margin-bottom: 8px; }
+.estilo-sub { font-size: 11px; color: rgba(255,255,255,.7); letter-spacing: .08em; text-transform: uppercase; margin-bottom: 12px; }
+.estilo-desc { font-size: 12px; color: rgba(255,255,255,.8); line-height: 1.6; font-weight: 300; }
+
+.guia-cta { padding: 80px 60px; text-align: center; background: var(--white); }
+
+@media (max-width: 900px) {
+  .guia-hero { grid-template-columns: 1fr; min-height: auto; }
+  .guia-hero-left { padding: 60px 24px; min-height: 60vh; }
+  .guia-hero-right { padding: 48px 24px; }
+  .guia-contenido { padding: 60px 24px; }
+  .contenido-grid { grid-template-columns: 1fr; }
+  .guia-test { padding: 60px 24px; }
+  .test-grid { grid-template-columns: 1fr; gap: 40px; }
+  .estilos { padding: 60px 24px; }
+  .estilos-grid { grid-template-columns: 1fr 1fr; }
+  .guia-cta { padding: 60px 24px; }
+}
+</style>
+</head>
+<body>
+
+<div class="topbar">Guía gratuita · 28 páginas · Base clínica real · Sin psicología de autoayuda</div>
+
+<nav>
+  <a href="index.html" class="nav-logo">Sofía <em>Arenas</em></a>
+  <div class="nav-links">
+    <a href="index.html">Inicio</a>
+    <a href="serie.html">La serie</a>
+    <a href="guia.html" style="color:var(--black);font-weight:500;">Guía gratuita</a>
+    <a href="reconecta.html" class="nav-cta">Reconecta — 97€</a>
+  </div>
+  <div class="nav-hamburger"><span></span><span></span><span></span></div>
+</nav>
+
+<!-- HERO -->
+<section class="guia-hero">
+  <div class="guia-hero-left">
+    <div class="fade-up">
+      <span class="section-tag" style="color:var(--lila);">Gratis · Descarga inmediata</span>
+      <h1 class="section-title" style="color:var(--white);">Descifra<br>tu <em>apego.</em></h1>
+      <p style="font-size:15px;color:var(--warm-light);line-height:1.75;font-weight:300;margin-bottom:12px;">Entiende por qué amas como amas. Con base clínica real.</p>
+      <p style="font-size:13px;color:var(--warm-gray);line-height:1.65;font-weight:300;">28 páginas · Test validado · Los 4 estilos de apego · Referencias académicas reales</p>
+    </div>
+  </div>
+  <div class="guia-hero-right fade-up fade-up-d1">
+    <div class="guia-mock">
+      <div class="guia-mock-title">DESCIFRA<br>TU APEGO</div>
+      <div class="guia-mock-sub">Guía de autodiagnóstico · @sofiarenas.psi</div>
+      <div class="guia-mock-desc">Guía de autodiagnóstico emocional basada en Teoría del Apego. Bowlby · Hazan & Shaver · Brennan & Shaver.</div>
+    </div>
+    <div class="form-box">
+      <div class="form-title">Recibe la guía ahora</div>
+      <div class="form-sub">Gratuita. Sin spam. Solo la guía y recursos de Sofía cuando haya algo nuevo.</div>
+      <form id="guia-form" onsubmit="submitForm(event)">
+        <div class="form-group">
+          <label>Tu nombre</label>
+          <input type="text" placeholder="Nombre" required>
+        </div>
+        <div class="form-group">
+          <label>Tu email</label>
+          <input type="email" placeholder="email@ejemplo.com" required>
+        </div>
+        <button type="submit" class="form-submit">Descargar gratis — 0€</button>
+      </form>
+      <div class="form-legal">Al suscribirte aceptas recibir emails de Sofía Arenas. Puedes darte de baja en cualquier momento. Sin spam.</div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTENIDO -->
+<section class="guia-contenido">
+  <div class="fade-up" style="text-align:center;max-width:520px;margin:0 auto;">
+    <span class="section-tag">Qué contiene</span>
+    <h2 class="section-title">28 páginas.<br>Base clínica <em>real.</em></h2>
+  </div>
+  <div class="contenido-grid">
+    <div class="contenido-card fade-up"><div class="contenido-num">01</div><div class="contenido-titulo">Qué es el apego</div><div class="contenido-desc">Por qué todos tenemos uno y por qué sigue activo en la adultez. Bowlby explicado sin jerga.</div></div>
+    <div class="contenido-card fade-up fade-up-d1"><div class="contenido-num">02</div><div class="contenido-titulo">Los 4 estilos</div><div class="contenido-desc">Seguro, ansioso, evitativo y desorganizado. Descripción clínica y cotidiana de cada uno.</div></div>
+    <div class="contenido-card fade-up fade-up-d2"><div class="contenido-num">03</div><div class="contenido-titulo">Test de 20 preguntas</div><div class="contenido-desc">Basado en las escalas de Hazan & Shaver (1987) y Brennan, Clark & Shaver (1998). Con tabla de resultados.</div></div>
+    <div class="contenido-card fade-up"><div class="contenido-num">04</div><div class="contenido-titulo">El patrón que repites</div><div class="contenido-desc">Por qué eliges a quien eliges. La trampa ansioso-evitativo. Los Modelos Internos de Trabajo.</div></div>
+    <div class="contenido-card fade-up fade-up-d1"><div class="contenido-num">05</div><div class="contenido-titulo">Trauma bonding</div><div class="contenido-desc">Por qué no puedes soltar aunque quieras. La neurología del ciclo de tensión-reconciliación.</div></div>
+    <div class="contenido-card fade-up fade-up-d2"><div class="contenido-num">06</div><div class="contenido-titulo">Qué significa sanar</div><div class="contenido-desc">El apego seguro adquirido existe. Las 6 señales reales de avance. Sin promesas vacías.</div></div>
+  </div>
+</section>
+
+<!-- TEST PREVIEW -->
+<section class="guia-test">
+  <div class="test-grid fade-up">
+    <div>
+      <span class="section-tag" style="color:var(--lila);">El test</span>
+      <h2 class="section-title" style="color:var(--white);">20 preguntas<br>que te <em>dicen mucho.</em></h2>
+      <p style="font-size:15px;color:var(--warm-light);line-height:1.75;font-weight:300;margin-bottom:28px;">Basado en escalas validadas internacionalmente. No un test de buzzfeed — un instrumento clínico adaptado para autodiagnóstico.</p>
+      <a href="#descargar" class="btn btn-lila">Descargar y hacer el test</a>
+    </div>
+    <div class="test-preview">
+      <div class="test-q">Necesito saber que la otra persona sigue ahí aunque no esté cerca.<div class="test-options">□ Nunca &nbsp; □ A veces &nbsp; □ Frecuentemente &nbsp; □ Casi siempre</div></div>
+      <div class="test-q">Cuando alguien que me importa tarda en responder, interpreto que algo va mal.<div class="test-options">□ Nunca &nbsp; □ A veces &nbsp; □ Frecuentemente &nbsp; □ Casi siempre</div></div>
+      <div class="test-q">Me incomoda que alguien quiera estar muy cerca emocionalmente de mí.<div class="test-options">□ Nunca &nbsp; □ A veces &nbsp; □ Frecuentemente &nbsp; □ Casi siempre</div></div>
+      <div class="test-q" style="opacity:.5">+ 17 preguntas más en la guía completa…</div>
+    </div>
+  </div>
+</section>
+
+<!-- ESTILOS -->
+<section class="estilos">
+  <div class="fade-up" style="text-align:center;max-width:480px;margin:0 auto;">
+    <span class="section-tag">Los 4 estilos</span>
+    <h2 class="section-title">¿Cuál es<br>el <em>tuyo?</em></h2>
+  </div>
+  <div class="estilos-grid fade-up">
+    <div class="estilo-card"><div class="estilo-titulo">Apego seguro</div><div class="estilo-sub">La base</div><div class="estilo-desc">Puede pedir lo que necesita. Tolera la separación. Busca resolución, no fusión.</div></div>
+    <div class="estilo-card"><div class="estilo-titulo">Apego ansioso</div><div class="estilo-sub">El que persigue</div><div class="estilo-desc">Sistema permanentemente activado. Necesita confirmación. El silencio lo alarma.</div></div>
+    <div class="estilo-card"><div class="estilo-titulo">Apego evitativo</div><div class="estilo-sub">El que se aleja</div><div class="estilo-desc">Aprendió que mostrar necesidad es peligroso. Se cierra cuando la intimidad crece.</div></div>
+    <div class="estilo-card"><div class="estilo-titulo">Desorganizado</div><div class="estilo-sub">El más complejo</div><div class="estilo-desc">Quiere y teme al mismo tiempo. El amor le genera deseo y miedo en igual medida.</div></div>
+  </div>
+</section>
+
+<!-- CTA FINAL -->
+<section class="guia-cta" id="descargar">
+  <span class="section-tag">Descarga gratuita</span>
+  <h2 class="section-title" style="max-width:480px;margin:0 auto 16px;">La guía es<br>el primer <em>paso real.</em></h2>
+  <p style="font-size:15px;color:var(--warm-gray);line-height:1.75;max-width:440px;margin:0 auto 36px;font-weight:300;">No reemplaza la terapia. Pero te da el lenguaje que hace posible que algo cambie. Y eso es lo más valioso.</p>
+  <a href="#" onclick="window.scrollTo({top:0,behavior:'smooth'}); return false;" class="btn btn-dark">Subir y descargar — 0€</a>
+  <p style="font-size:12px;color:var(--warm-gray);margin-top:16px;">¿Ya tienes la guía? <a href="reconecta.html" style="color:var(--lila-dark);text-decoration:underline;">El siguiente paso es Reconecta →</a></p>
+</section>
+
+<footer>
+  <div class="footer-top">
+    <div><div class="footer-logo">Sofía <em>Arenas</em></div><div class="footer-tagline">Psicóloga especializada en apego y vínculos emocionales.</div></div>
+    <div><div class="footer-col-title">Contenido</div><div class="footer-col-links"><a href="serie.html">La serie</a><a href="guia.html">Guía gratuita</a><a href="reconecta.html">Reconecta</a></div></div>
+    <div><div class="footer-col-title">Legal</div><div class="footer-col-links"><a href="privacidad.html">Privacidad</a><a href="aviso.html">Aviso legal</a><a href="cookies.html">Cookies</a></div></div>
+  </div>
+  <div class="footer-bottom"><div class="footer-copy">© 2025 Sofía Arenas Montoya</div><div class="footer-ig">@sofiarenas.psi</div></div>
+</footer>
+
+<script src="js/main.js"></script>
+<script>
+async function submitForm(e) {
+  e.preventDefault();
+
+  const btn = document.querySelector('.form-submit');
+  const nombre = document.querySelector('#guia-form input[type="text"]').value.trim();
+  const email  = document.querySelector('#guia-form input[type="email"]').value.trim();
+
+  btn.textContent = 'Enviando…';
+  btn.disabled = true;
+  btn.style.background = 'var(--lila-dark)';
+
+  try {
+    const res = await fetch('https://sofiarenas.es/api/suscribir.php', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ nombre, email })
+    });
+
+    const data = await res.json();
+
+    if (data.ok) {
+      btn.textContent = '¡Listo! Revisa tu email';
+      btn.style.background = 'var(--teal)';
+    } else {
+      throw new Error(data.error || 'Error desconocido');
+    }
+
+  } catch (err) {
+    btn.textContent = 'Error — inténtalo de nuevo';
+    btn.style.background = '#D85A30';
+    btn.disabled = false;
+    console.error(err);
+  }
+}
+</script>
+</body>
+</html>

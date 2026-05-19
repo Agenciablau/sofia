@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="La consulta de mi novio — Serie de Sofía Arenas.">
+<title>La consulta de mi novio · Sofía Arenas</title>
+<link rel="stylesheet" href="css/style.css">
+<style>
+.serie-hero{background:var(--black);padding:100px 60px;position:relative;overflow:hidden}
+.serie-hero::before{content:'SERIE';position:absolute;top:-20px;right:-20px;font-family:var(--font-display);font-size:200px;font-weight:900;color:rgba(255,255,255,.025);pointer-events:none;line-height:1}
+.serie-hero-inner{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
+.apertura-card{background:rgba(255,255,255,.04);border-left:4px solid var(--lila-dark);padding:36px 28px}
+.apertura-line{font-family:var(--font-italic);font-size:17px;font-style:italic;color:var(--white);line-height:1.8;font-weight:300;margin-bottom:4px}
+.apertura-cierre{font-family:var(--font-display);font-size:16px;font-weight:700;color:var(--lila);margin-top:12px}
+.episodios{padding:100px 60px;background:var(--white)}
+.ep-card{display:grid;grid-template-columns:80px 1fr;background:var(--cream);margin-bottom:2px;transition:background .25s;overflow:hidden}
+.ep-card:hover{background:var(--lila-light)}
+.ep-card.featured{background:var(--cream-dark)}
+.ep-num-col{background:var(--black);display:flex;align-items:center;justify-content:center;padding:40px 0}
+.ep-num-col.accent{background:var(--lila-dark)}
+.ep-num-text{font-family:var(--font-display);font-size:28px;font-weight:900;color:var(--lila)}
+.ep-num-col.accent .ep-num-text{color:var(--white)}
+.ep-content{padding:36px 40px;display:flex;gap:40px;align-items:flex-start}
+.ep-main{flex:1}
+.ep-patron{font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--lila-dark);font-weight:500;margin-bottom:8px}
+.ep-titulo{font-family:var(--font-display);font-size:22px;font-weight:700;line-height:1.25;margin-bottom:12px}
+.ep-desc{font-size:14px;color:var(--warm-gray);line-height:1.65;font-weight:300;margin-bottom:20px}
+.ep-footer{display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.ep-tag{display:inline-block;font-size:10px;padding:4px 12px;background:var(--lila-light);color:var(--lila-dark);font-weight:500;letter-spacing:.08em}
+.ep-tag.dark{background:var(--lila-dark);color:var(--white)}
+.ep-side{min-width:180px}
+.ep-chat{background:var(--white);padding:16px;border-left:3px solid var(--lila-dark)}
+.ep-chat-msg{font-size:11px;color:var(--black-soft);line-height:1.55;margin-bottom:6px;font-weight:300}
+.ep-chat-msg:last-child{margin-bottom:0}
+.ep-chat-msg strong{font-weight:500;color:var(--lila-dark)}
+.ep-chat-reply{font-size:11px;color:var(--warm-gray);line-height:1.55;font-style:italic}
+.btn-ep{display:inline-flex;align-items:center;gap:8px;padding:10px 20px;background:var(--black);color:var(--white);font-family:var(--font-body);font-size:11px;letter-spacing:.12em;text-transform:uppercase;font-weight:500;cursor:pointer;border:none;text-decoration:none;transition:background .2s,transform .15s;white-space:nowrap}
+.btn-ep:hover{background:var(--lila-dark);transform:translateY(-1px)}
+.btn-ep svg{width:12px;height:12px;fill:currentColor;flex-shrink:0}
+.btn-ep.lila{background:var(--lila-dark)}
+.btn-ep.lila:hover{background:var(--lila-mid)}
+.ep-modal-overlay{position:fixed;inset:0;background:rgba(15,14,12,.88);z-index:1000;display:none;align-items:center;justify-content:center;padding:24px;backdrop-filter:blur(4px)}
+.ep-modal-overlay.open{display:flex}
+.ep-modal{background:var(--white);max-width:720px;width:100%;max-height:90vh;overflow-y:auto;position:relative;animation:modalIn .25s ease}
+@keyframes modalIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+.ep-modal-head{background:var(--black);padding:28px 32px;position:relative}
+.ep-modal-close{position:absolute;top:20px;right:20px;width:32px;height:32px;background:rgba(255,255,255,.1);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--white);font-size:18px;transition:background .2s}
+.ep-modal-close:hover{background:var(--lila-dark)}
+.ep-modal-num{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--lila);margin-bottom:8px;font-weight:400}
+.ep-modal-titulo{font-family:var(--font-display);font-size:21px;font-weight:700;color:var(--white);line-height:1.2;margin-bottom:6px}
+.ep-modal-sub{font-size:12px;color:var(--warm-light);font-weight:300}
+.ep-modal-body{padding:32px}
+.ep-modal-section{margin-bottom:24px}
+.ep-modal-label{font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--lila-dark);font-weight:500;margin-bottom:10px}
+.ep-modal-timing{display:flex;flex-direction:column;gap:2px}
+.ep-modal-timing-row{display:grid;grid-template-columns:28mm 1fr}
+.ep-modal-timing-row:nth-child(odd){background:var(--cream-dark)}
+.ep-modal-timing-row:nth-child(even){background:var(--cream)}
+.ep-modal-timing-t{padding:8px 10px;font-size:10px;font-weight:700;color:var(--lila-dark);border-right:2px solid var(--lila-dark)}
+.ep-modal-timing-d{padding:8px 12px;font-size:11px;color:var(--black-soft);font-weight:300;line-height:1.4}
+.ep-modal-chat{display:flex;flex-direction:column;gap:6px}
+.ep-modal-bubble{padding:10px 14px;font-size:13px;line-height:1.55;font-weight:300;max-width:88%}
+.ep-modal-bubble.client{background:var(--lila-light);border-left:3px solid var(--lila-dark);color:var(--black-soft)}
+.ep-modal-bubble.novio{background:var(--cream-dark);border-left:3px solid var(--warm-gray);color:var(--black-soft);align-self:flex-end;margin-left:auto}
+.ep-modal-bubble.sofia{background:var(--lila-light);border-left:3px solid var(--lila-dark);color:var(--black-soft);align-self:flex-end;margin-left:auto}
+.ep-modal-bubble-name{font-size:9px;font-weight:600;color:var(--warm-gray);margin-bottom:3px;letter-spacing:.08em;text-transform:uppercase}
+.ep-modal-guion{background:var(--cream);padding:20px;border-left:4px solid var(--lila-dark);font-size:14px;line-height:1.9;color:var(--black-soft)}
+.ep-modal-guion .punch{font-weight:700;color:#712B13}
+.ep-modal-guion .bold{font-weight:700;color:var(--lila-dark)}
+.ep-modal-guion .cta{font-weight:700;color:var(--teal)}
+.ep-modal-caption{background:var(--black);padding:20px;font-size:13px;color:var(--warm-light);line-height:1.8;font-weight:300;white-space:pre-line}
+.ep-modal-footer{border-top:1px solid var(--cream-dark);padding:20px 32px;display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}
+.como-funciona{padding:80px 60px;background:var(--black)}
+.flujo-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:0;margin-top:48px}
+.flujo-step{padding:32px 20px;text-align:center;position:relative}
+.flujo-step::after{content:'→';position:absolute;right:-6px;top:50%;transform:translateY(-50%);font-size:18px;color:var(--lila-dark)}
+.flujo-step:last-child::after{display:none}
+.flujo-num{font-family:var(--font-display);font-size:36px;font-weight:900;color:var(--lila-dark);line-height:1;margin-bottom:10px}
+.flujo-titulo{font-size:13px;font-weight:500;color:var(--white);margin-bottom:6px}
+.flujo-desc{font-size:11px;color:var(--warm-gray);line-height:1.55;font-weight:300}
+.cta-serie{padding:80px 60px;background:var(--lila-dark);text-align:center}
+@media(max-width:900px){
+  .serie-hero{padding:60px 24px}
+  .serie-hero-inner{grid-template-columns:1fr;gap:40px}
+  .episodios{padding:60px 24px}
+  .ep-card{grid-template-columns:60px 1fr}
+  .ep-content{flex-direction:column;padding:24px 20px;gap:16px}
+  .ep-side{min-width:unset;width:100%}
+  .ep-footer{flex-direction:column;align-items:flex-start}
+  .como-funciona{padding:60px 24px}
+  .flujo-grid{grid-template-columns:1fr 1fr;gap:2px}
+  .flujo-step::after{display:none}
+  .cta-serie{padding:60px 24px}
+  .ep-modal{max-height:95vh}
+  .ep-modal-timing-row{grid-template-columns:22mm 1fr}
+}
+</style>
+</head>
+<body>
+<div class="topbar">@sofiarenas.psi &nbsp;·&nbsp; Guía gratuita — <a href="guia.html" style="color:var(--lila);text-decoration:underline;">Descárgala aquí</a></div>
+<nav>
+  <a href="index.html" class="nav-logo">Sofía <em>Arenas</em></a>
+  <div class="nav-links">
+    <a href="index.html">Inicio</a>
+    <a href="serie.html" style="color:var(--black);font-weight:500;">La serie</a>
+    <a href="guia.html">Guía gratuita</a>
+    <a href="reconecta.html" class="nav-cta">Reconecta — 97€</a>
+  </div>
+  <div class="nav-hamburger"><span></span><span></span><span></span></div>
+</nav>
+
+<section class="serie-hero">
+  <div class="serie-hero-inner">
+    <div class="fade-up">
+      <span class="section-tag" style="color:var(--lila);">La serie</span>
+      <h1 class="section-title" style="color:var(--white);">La consulta<br>de <em>mi novio.</em></h1>
+      <p style="font-size:15px;color:var(--warm-light);line-height:1.75;font-weight:300;margin-bottom:32px;">Mi novio hace fotos para Tinder. Sus clientes le cuentan todo. Yo soy psicóloga especializada en vínculos. Y los casos que le llegan son mejores que los míos.</p>
+      <a href="guia.html" class="btn btn-lila">Guía gratuita — 0€</a>
+    </div>
+    <div class="apertura-card fade-up fade-up-d2">
+      <div class="apertura-line">"Mi novio hace fotos para Tinder.</div>
+      <div class="apertura-line">Sus clientes le cuentan todo antes de posar.</div>
+      <div class="apertura-line">Y los casos que le llegan... son mejores que los míos.</div>
+      <div class="apertura-line">Soy Sofía, psicóloga especializada en vínculos.</div>
+      <div class="apertura-cierre">Bienvenidos a mi serie — La consulta de mi novio."</div>
+    </div>
+  </div>
+</section>
+
+<section class="episodios">
+  <div class="fade-up" style="margin-bottom:48px;">
+    <span class="section-tag">Serie Bruno · 4 episodios</span>
+    <h2 class="section-title">Bruno llega<br>buscando <em>mejores fotos.</em></h2>
+    <p class="section-sub">Lo que encuentra en la consulta de mi novio es algo completamente diferente.</p>
+  </div>
+
+  <div class="ep-card fade-up">
+    <div class="ep-num-col"><div class="ep-num-text">01</div></div>
+    <div class="ep-content">
+      <div class="ep-main">
+        <div class="ep-patron">Autoestima condicional · 33 seg</div>
+        <div class="ep-titulo">"Si eres un 4, aún así lo vas a tener mal"</div>
+        <div class="ep-desc">Bruno lleva semanas en Tinder sin resultados. Y la primera pregunta que le hace a mi novio es si su cara es suficiente. Eso no es una pregunta sobre Tinder.</div>
+        <div class="ep-footer">
+          <span class="ep-tag">Episodio piloto</span>
+          <button class="btn-ep" onclick="openModal('ep1')">
+            <svg viewBox="0 0 16 16"><polygon points="4,2 14,8 4,14"/></svg>
+            Ver episodio
+          </button>
+        </div>
+      </div>
+      <div class="ep-side">
+        <div class="ep-chat">
+          <div class="ep-chat-msg"><strong>Bruno:</strong> "Si eres un 4... aún así lo vas a tener mal."</div>
+          <div class="ep-chat-reply">El novio: "¿Cuánto te puntúas tú?"</div>
+          <div class="ep-chat-msg" style="margin-top:6px;"><strong>Bruno:</strong> "Honestamente... no lo sé."</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ep-card fade-up">
+    <div class="ep-num-col"><div class="ep-num-text">02</div></div>
+    <div class="ep-content">
+      <div class="ep-main">
+        <div class="ep-patron">Valor percibido vs valor real · 30 seg</div>
+        <div class="ep-titulo">"Eres un diamante en bruto" — y aun así no se lo cree</div>
+        <div class="ep-desc">Alguien le ha dicho a Bruno tres veces que tiene valor. Y su respuesta es normalizar el cumplido. Cuando alguien no puede recibir reconocimiento sin neutralizarlo, no es modestia.</div>
+        <div class="ep-footer">
+          <span class="ep-tag">DM share alto</span>
+          <button class="btn-ep" onclick="openModal('ep2')">
+            <svg viewBox="0 0 16 16"><polygon points="4,2 14,8 4,14"/></svg>
+            Ver episodio
+          </button>
+        </div>
+      </div>
+      <div class="ep-side">
+        <div class="ep-chat">
+          <div class="ep-chat-reply">El novio: "Bruno, eres un diamante en bruto. Pero tus fotos cuentan una historia plana."</div>
+          <div class="ep-chat-msg" style="margin-top:6px;"><strong>Bruno:</strong> "Justo lo que me ha dicho la IA."</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ep-card fade-up">
+    <div class="ep-num-col"><div class="ep-num-text">03</div></div>
+    <div class="ep-content">
+      <div class="ep-main">
+        <div class="ep-patron">Cosificación y validación · 32 seg</div>
+        <div class="ep-titulo">"Esto parece un mercado" — y tiene razón, pero no de la forma que cree</div>
+        <div class="ep-desc">Bruno tiene razón. Las apps funcionan como un mercado. Pero lo que él no ve es que no está buscando mejores fotos. Está buscando una prueba de que es elegible.</div>
+        <div class="ep-footer">
+          <span class="ep-tag">Viral alto</span>
+          <button class="btn-ep" onclick="openModal('ep3')">
+            <svg viewBox="0 0 16 16"><polygon points="4,2 14,8 4,14"/></svg>
+            Ver episodio
+          </button>
+        </div>
+      </div>
+      <div class="ep-side">
+        <div class="ep-chat">
+          <div class="ep-chat-msg"><strong>Bruno:</strong> "Me parece esto un mercado."</div>
+          <div class="ep-chat-reply">El novio a Sofía: "¿Él tiene razón?"</div>
+          <div class="ep-chat-msg" style="margin-top:6px;"><strong>Sofía:</strong> "Tiene razón. Pero solo a medias."</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ep-card featured fade-up">
+    <div class="ep-num-col accent"><div class="ep-num-text">04</div></div>
+    <div class="ep-content">
+      <div class="ep-main">
+        <div class="ep-patron">Mayor conversión · 35 seg</div>
+        <div class="ep-titulo">300€ en 10 minutos — lo que eso dice de verdad</div>
+        <div class="ep-desc">El mismo Bruno que no sabía si merecía estar en Tinder compromete 300€ en 10 minutos. Eso no es una decisión de compra. Es un acto de desesperación ordenada.</div>
+        <div class="ep-footer">
+          <span class="ep-tag dark">El más revelador</span>
+          <button class="btn-ep lila" onclick="openModal('ep4')">
+            <svg viewBox="0 0 16 16"><polygon points="4,2 14,8 4,14"/></svg>
+            Ver episodio
+          </button>
+        </div>
+      </div>
+      <div class="ep-side">
+        <div class="ep-chat" style="border-left-color:var(--lila-dark);">
+          <div class="ep-chat-msg"><strong>Bruno:</strong> "Vale, el pack premium."</div>
+          <div class="ep-chat-reply">El novio: "Son 300€. ¿Seguro?"</div>
+          <div class="ep-chat-msg" style="margin-top:6px;"><strong>Bruno:</strong> "La decisión más rápida que he tomado."</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="como-funciona">
+  <div class="fade-up">
+    <span class="section-tag" style="color:var(--lila);">El sistema</span>
+    <h2 class="section-title" style="color:var(--white);">De la serie<br>a <em>Reconecta.</em></h2>
+  </div>
+  <div class="flujo-grid fade-up">
+    <div class="flujo-step"><div class="flujo-num">1</div><div class="flujo-titulo">Ves el reel</div><div class="flujo-desc">Guardas o comentas BRUNO en Instagram</div></div>
+    <div class="flujo-step"><div class="flujo-num">2</div><div class="flujo-titulo">Recibes la guía</div><div class="flujo-desc">Directamente en el DM. Gratis.</div></div>
+    <div class="flujo-step"><div class="flujo-num">3</div><div class="flujo-titulo">Lees la guía</div><div class="flujo-desc">28 páginas. Test de apego. Base clínica.</div></div>
+    <div class="flujo-step"><div class="flujo-num">4</div><div class="flujo-titulo">Email de Sofía</div><div class="flujo-desc">4 correos que van más profundo.</div></div>
+    <div class="flujo-step"><div class="flujo-num">5</div><div class="flujo-titulo">Reconecta</div><div class="flujo-desc">Si quieres el siguiente paso real.</div></div>
+  </div>
+</section>
+
+<section class="cta-serie">
+  <span class="section-tag" style="color:var(--lila-light);">Empieza aquí</span>
+  <h2 class="section-title" style="color:var(--white);max-width:500px;margin:0 auto 20px;">La guía<br><em>es gratuita.</em></h2>
+  <p style="font-size:15px;color:var(--lila-light);line-height:1.75;max-width:440px;margin:0 auto 36px;font-weight:300;">28 páginas. Test validado. Los 4 estilos de apego. Sin psicología de autoayuda.</p>
+  <a href="guia.html" class="btn btn-white">Descargar gratis — 0€</a>
+</section>
+
+<footer>
+  <div class="footer-top">
+    <div><div class="footer-logo">Sofía <em>Arenas</em></div><div class="footer-tagline">Psicóloga especializada en apego y vínculos emocionales.</div></div>
+    <div><div class="footer-col-title">Contenido</div><div class="footer-col-links"><a href="serie.html">La serie</a><a href="guia.html">Guía gratuita</a><a href="reconecta.html">Reconecta</a></div></div>
+    <div><div class="footer-col-title">Legal</div><div class="footer-col-links"><a href="privacidad.html">Privacidad</a><a href="aviso.html">Aviso legal</a><a href="cookies.html">Cookies</a></div></div>
+  </div>
+  <div class="footer-bottom"><div class="footer-copy">© 2025 Sofía Arenas Montoya</div><div class="footer-ig">@sofiarenas.psi</div></div>
+</footer>
+
+<!-- MODALES -->
+<div class="ep-modal-overlay" id="modal-ep1">
+  <div class="ep-modal">
+    <div class="ep-modal-head">
+      <button class="ep-modal-close" onclick="closeModal('ep1')">✕</button>
+      <div class="ep-modal-num">Episodio 1 de 4 · Serie Bruno</div>
+      <div class="ep-modal-titulo">"Si eres un 4, aún así lo vas a tener mal"</div>
+      <div class="ep-modal-sub">Autoestima condicional · 33 segundos</div>
+    </div>
+    <div class="ep-modal-body">
+      <div class="ep-modal-section">
+        <div class="ep-modal-label">Tiempos</div>
+        <div class="ep-modal-timing">
+          <div class="ep-modal-timing-row"><div class="ep-modal-timing-t">0–7 seg</div><div class="ep-modal-timing-d">Apertura fija de la serie</div></div>
+          <div class="ep-modal-timing-row"><div class="ep-modal-timing-t">7–11 seg</div><div class="ep-modal-timing-d">Captura del chat en pantalla completa</div></div>
+          <div class="ep-modal-timing-row"><div class="ep-modal-timing-t">11–30 seg</div><div class="ep-modal-timing-d">Sofía a cámara — el análisis</div></div>
+          <div class="ep-modal-timing-row"><div class="ep-modal-timing-t">30–33 seg</div><div class="ep-modal-timing-d">CTA — dicho con calma y en voz baja</div></div>
+        </div>
+      </div>
+      <div class="ep-modal-section">
+        <div class="ep-modal-label">Chat ficticio (crear mockup de WhatsApp con este texto)</div>
+        <div class="ep-modal-chat">
+          <div class="ep-modal-bubble client"><div class="ep-modal-bubble-name">Bruno</div>"Si tu atractivo está en un 6, las fotos te pueden llevar al 8. Pero si eres un 4... aún así lo vas a tener mal."</div>
+          <div class="ep-modal-bubble novio"><div class="ep-modal-bubble-name">El novio</div>"¿Cuánto te puntúas tú?"</div>
+          <div class="ep-modal-bubble client"><div class="ep-modal-bubble-name">Bruno</div>"Honestamente... no lo sé."</div>
+        </div>
+      </div>
+      <div class="ep-modal-section">
+        <div class="ep-modal-label">Guión de Sofía</div>
+        <div class="ep-modal-guion"><span class="bold">"No lo sé."</span><br><br>Bruno lleva semanas en Tinder sin resultados.<br>Y la primera pregunta que le hace a mi novio es si su cara es suficiente.<br><br><span class="punch">Eso no es una pregunta sobre Tinder.<br>Es una pregunta sobre si merece ser deseado.</span><br><br>Cuando alguien necesita puntuarse para saber si merece atención,<br>no tiene un problema de fotos.<br>Tiene la autoestima condicionada al atractivo percibido.<br><br>Y eso no lo resuelve ni el mejor fotógrafo del mundo.<br><br><span class="cta">"Guarda esto si te resonó."</span></div>
+      </div>
+      <div class="ep-modal-section">
+        <div class="ep-modal-label">Caption</div>
+        <div class="ep-modal-caption">"Si eres un 4, aún así lo vas a tener mal."
+
+Bruno no está hablando de fotos. Está hablando de si merece ser elegido.
+
+La autoestima condicional al atractivo percibido no se forma en Tinder. Se forma mucho antes — en cómo aprendiste que el amor se gana, no se recibe.
+
+Esta es la primera parte de la historia de Bruno. ¿La sigues?
+
+👉 Guarda esto o comenta BRUNO y te mando la guía gratuita.
+
+#laconsultademimovio #autoestima #psicologia #tinder #apego #sofiaarenas</div>
+      </div>
+    </div>
+    <div class="ep-modal-footer">
+      <a href="guia.html" class="btn-ep">Guía gratuita</a>
+      <button class="btn-ep lila" onclick="closeModal('ep1');openModal('ep2')">Episodio 2 →</button>
+    </div>
+  </div>
+</div>
+
+<div class="ep-modal-overlay" id="modal-ep2">
+  <div class="ep-modal">
+    <div class="ep-modal-head">
+      <button class="ep-modal-close" onclick="closeModal('ep2')">✕</button>
+      <div class="ep-modal-num">Episodio 2 de 4 · Serie Bruno</div>
+      <div class="ep-modal-titulo">"Eres un diamante en bruto" — y no se lo cree</div>
+      <div class="ep-modal-sub">Valor percibido vs valor real · 30 segundos</div>
+    </div>
+    <div class="ep-modal-body">
+      <div class="ep-modal-section">
+        <div class="ep-modal-label">Tiempos</div>
+        <div class="ep-modal-timing">
+          <div class="ep-modal-timing-row"><div class="ep-modal-timing-t">0–7 seg</div><div class="ep-modal-timing-d">Apertura fija</div></div>
+          <div class="ep-modal-timing-row"><div class="ep-modal-timing-t">7–11 seg</div><div class="ep-modal-timing-d">Captura del chat — solo 2 mensajes</div></div>
+          <div class="ep-modal-timing-row"><div class="ep-modal-timing-t">11–27 seg</div><div class="ep-modal-timing-d">Sofía a cámara</div></div>
+          <div class="ep-modal-timing-row"><div class="ep-modal-timing-t">27–30 seg</div><div class="ep-modal-timing-d">CTA + anticipo del ep.3</div></div>
+        </div>
+      </div>
+      <div class="ep-modal-section">
+        <div class="ep-modal-label">Chat ficticio</div>
+        <div class="ep-modal-chat">
+          <div class="ep-modal-bubble novio"><div class="ep-modal-bubble-name">El novio — tras ver el perfil</div>"Bruno, eres un diamante en bruto. Tienes ingredientes brutales. Pero tus fotos cuentan una historia plana y gris."</div>
+          <div class="ep-modal-bubble client"><div class="ep-modal-bubble-name">Bruno</div>"Justo lo que me ha dicho la IA."</div>
+        </div>
+      </div>
+      <div class="ep-modal-section">
+        <div class="ep-modal-label">Guión de Sofía</div>
+        <div class="ep-modal-guion"><span class="bold">"Justo lo que me ha dicho la IA."</span><br><br>Alguien le ha dicho a Bruno tres veces que tiene valor.<br>Y su respuesta es normalizar el cumplido.<br><br><span class="punch">Cuando alguien no puede recibir reconocimiento sin neutralizarlo,<br>no es modestia.<br>Es que su imagen interna no tiene espacio para creerlo.</span><br><br>Bruno no necesita que le digan que es un diamante.<br>Necesita entender por qué lleva tanto tiempo sin poder verlo él solo.<br><br><span class="cta">"¿Cuántas veces neutralizas tú un cumplido hoy? Parte 3 — el jueves."</span></div>
+      </div>
+      <div class="ep-modal-section">
+        <div class="ep-modal-label">Caption</div>
+        <div class="ep-modal-caption">Tres personas le han dicho a Bruno que tiene valor. Él los neutraliza cada vez.
+
+La incapacidad de recibir reconocimiento sin minimizarlo es una señal clara de autoestima estructuralmente baja. No es humildad. Es que la imagen interna no tiene espacio para esa versión de uno mismo.
+
+¿Cuántas veces neutralizas tú un cumplido hoy?
+
+Parte 3 de Bruno — el jueves.
+
+👉 Comenta BRUNO y te mando la guía gratuita.
+
+#laconsultademimovio #autoestima #apego #psicologia #sofiaarenas</div>
+      </div>
+    </div>
+    <div class="ep-modal-footer">
+      <button class="btn-ep" onclick="closeModal('ep2');openModal('ep1')">← Ep. 1</button>
+      <button class="btn-ep lila" onclick="closeModal('ep2');openModal('ep3')">Episodio 3 →</button>
+    </div>
+  </div>
+</div>
+
+<div class="ep-modal-overlay" id="modal-ep3">
+  <div class="ep-modal">
+    <div class="ep-modal-head">
+      <button class="ep-modal-close" onclick="closeModal('ep3')">✕</button>
+      <div class="ep-modal-num">Episodio 3 de 4 · Serie Bruno</div>
+      <div class="ep-modal-titulo">"Esto parece un mercado"</div>
+      <div class="ep-modal-sub">Cosificación y necesidad de validación · 32 segundos</div>
+    </div>
+    <div class="ep-modal-body">
+      <div class="ep-modal-section">
+        <div class="ep-modal-label">Tiempos</div>
+        <div class="ep-modal-timing">
+          <div class="ep-modal-timing-row"><div class="ep-modal-timing-t">0–7 seg</div><div class="ep-modal-timing-d">Apertura fija</div></div>
+          <div class="ep-modal-timing-row"><div class="ep-modal-timing-t">7–12 seg</div><div class="ep-modal-timing-d">Captura del chat — Sofía aparece en el chat por primera vez</div></div>
+          <div class="ep-modal-timing-row"><div class="ep-modal-timing-t">12–29 seg</div><div class="ep-modal-timing-d">Sofía a cámara</div></div>
+          <div class="ep-modal-timing-row"><div class="ep-modal-timing-t">29–32 seg</div><div class="ep-modal-timing-d">CTA + cliffhanger — "el más revelador el jueves"</div></div>
+        </div>
+      </div>
+      <div class="ep-modal-section">
+        <div class="ep-modal-label">Chat ficticio</div>
+        <div class="ep-modal-chat">
+          <div class="ep-modal-bubble client"><div class="ep-modal-bubble-name">Bruno</div>"Me parece esto un mercado. Pero me temo que el tema está así hoy en día."</div>
+          <div class="ep-modal-bubble novio"><div class="ep-modal-bubble-name">El novio (esa noche, a Sofía)</div>"Sofía, ¿él tiene razón?"</div>
+          <div class="ep-modal-bubble sofia"><div class="ep-modal-bubble-name">Sofía</div>"Tiene razón. Pero solo a medias."</div>
+        </div>
+      </div>
+      <div class="ep-modal-section">
+        <div class="ep-modal-label">Guión de Sofía</div>
+        <div class="ep-modal-guion"><span class="bold">Bruno tiene razón. Las apps funcionan como un mercado.</span><br>Pero lo que él no ve es lo siguiente:<br><br><span class="punch">Lo que realmente busca — conexión, ser visto, ser elegido —<br>eso no está en ningún catálogo.</span><br><br>Bruno no está buscando mejores fotos.<br>Está buscando una prueba de que es elegible.<br><br>Y si alguien solo se siente valioso cuando es elegido...<br>depende de que le elijan para sentirse bien consigo mismo.<br><br><span class="cta">"Guarda esto. El episodio 4 — el más revelador — el jueves."</span></div>
+      </div>
+      <div class="ep-modal-section">
+        <div class="ep-modal-label">Caption</div>
+        <div class="ep-modal-caption">"Me parece esto un mercado."
+
+Bruno tiene razón. Y a la vez, no del todo.
+
+Las apps amplifican algo que ya existía: la necesidad de ser elegido para confirmar el propio valor. Cuando ese valor depende de ser elegido, cualquier rechazo se vive como confirmación de que uno no es suficiente.
+
+Episodio 4 de Bruno el jueves. El más revelador.
+
+👉 Comenta BRUNO y te mando la guía gratuita.
+
+#laconsultademimovio #autoestima #apego #tinder #psicologia #sofiaarenas</div>
+      </div>
+    </div>
+    <div class="ep-modal-footer">
+      <button class="btn-ep" onclick="closeModal('ep3');openModal('ep2')">← Ep. 2</button>
+      <button class="btn-ep lila" onclick="closeModal('ep3');openModal('ep4')">Último episodio →</button>
+    </div>
+  </div>
+</div>
+
+<div class="ep-modal-overlay" id="modal-ep4">
+  <div class="ep-modal">
+    <div class="ep-modal-head" style="background:var(--lila-dark);">
+      <button class="ep-modal-close" onclick="closeModal('ep4')">✕</button>
+      <div class="ep-modal-num">Episodio 4 de 4 · Serie Bruno · El más revelador</div>
+      <div class="ep-modal-titulo">300€ en 10 minutos — lo que eso dice de verdad</div>
+      <div class="ep-modal-sub">Gasto como búsqueda de solución externa · Mayor conversión · 35 segundos</div>
+    </div>
+    <div class="ep-modal-body">
+      <div class="ep-modal-section">
+        <div class="ep-modal-label">Tiempos</div>
+        <div class="ep-modal-timing">
+          <div class="ep-modal-timing-row"><div class="ep-modal-timing-t">0–7 seg</div><div class="ep-modal-timing-d">Apertura fija</div></div>
+          <div class="ep-modal-timing-row"><div class="ep-modal-timing-t">7–12 seg</div><div class="ep-modal-timing-d">Captura del chat — la rapidez de la decisión es el gancho</div></div>
+          <div class="ep-modal-timing-row"><div class="ep-modal-timing-t">12–31 seg</div><div class="ep-modal-timing-d">Sofía a cámara — el más lento de los 4. Habla con peso.</div></div>
+          <div class="ep-modal-timing-row"><div class="ep-modal-timing-t">31–35 seg</div><div class="ep-modal-timing-d">CTA doble: guía gratuita + "¿quieres ver otro caso?"</div></div>
+        </div>
+      </div>
+      <div class="ep-modal-section">
+        <div class="ep-modal-label">Chat ficticio</div>
+        <div class="ep-modal-chat">
+          <div class="ep-modal-bubble client"><div class="ep-modal-bubble-name">Bruno — 10 minutos después de ver ejemplos</div>"Vale pues vamos a hacerlo. El pack premium."</div>
+          <div class="ep-modal-bubble novio"><div class="ep-modal-bubble-name">El novio</div>"Son 300€. ¿Seguro?"</div>
+          <div class="ep-modal-bubble client"><div class="ep-modal-bubble-name">Bruno</div>"Sí. La decisión más rápida que he tomado en mucho tiempo."</div>
+        </div>
+      </div>
+      <div class="ep-modal-section">
+        <div class="ep-modal-label">Guión de Sofía</div>
+        <div class="ep-modal-guion"><span class="bold">Bruno tardó 10 minutos en comprometer 300€.</span><br>El mismo Bruno que hace tres días no sabía si merecía estar en Tinder.<br><br><span class="punch">Eso no es una decisión de compra.<br>Es un acto de desesperación ordenada.</span><br><br>Cuando alguien lleva tiempo sintiéndose insuficiente,<br>cualquier solución que prometa cambiar eso desde fuera se vuelve urgente.<br><br>Bruno no necesita fotos de 300€.<br>Necesita entender por qué lleva tanto tiempo creyendo<br>que necesita ser diferente para merecer ser amado.<br><br>Esa es la pregunta real. Y tiene respuesta.<br><br><span class="cta">"La guía gratuita en mi bio empieza exactamente ahí. Link en bio."</span><br><span class="cta">"¿Quieres ver otro caso? Comenta SÍ."</span></div>
+      </div>
+      <div class="ep-modal-section">
+        <div class="ep-modal-label">Caption</div>
+        <div class="ep-modal-caption">Cuatro episodios. Un patrón completo.
+
+Bruno llegó preguntando si su cara era suficiente para Tinder. Y en 10 minutos comprometió 300€ en la promesa de que las fotos cambiarían lo que sentía por dentro.
+
+El problema no está en las fotos.
+
+Está en la pregunta que Bruno lleva años haciéndose: ¿soy suficiente para ser elegido?
+
+Si reconoces esa pregunta en ti, la guía gratuita en mi bio es el primer paso real.
+
+👉 Link en bio — descarga la guía gratuita.
+¿Quieres ver otro caso? Comenta SÍ.
+
+#laconsultademimovio #autoestima #apego #psicologia #tinder #sofiaarenas</div>
+      </div>
+    </div>
+    <div class="ep-modal-footer">
+      <button class="btn-ep" onclick="closeModal('ep4');openModal('ep3')">← Ep. 3</button>
+      <a href="guia.html" class="btn-ep lila">Descargar guía gratuita →</a>
+    </div>
+  </div>
+</div>
+
+<script src="js/main.js"></script>
+<script>
+function openModal(id){document.getElementById('modal-'+id).classList.add('open');document.body.style.overflow='hidden';}
+function closeModal(id){document.getElementById('modal-'+id).classList.remove('open');document.body.style.overflow='';}
+document.querySelectorAll('.ep-modal-overlay').forEach(o=>{o.addEventListener('click',function(e){if(e.target===this){this.classList.remove('open');document.body.style.overflow='';}});});
+document.addEventListener('keydown',function(e){if(e.key==='Escape'){document.querySelectorAll('.ep-modal-overlay.open').forEach(m=>{m.classList.remove('open');document.body.style.overflow='';});}});
+</script>
+</body>
+</html>

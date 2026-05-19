@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Reconecta — Programa de 4 semanas de Sofía Arenas. Entiende tu patrón relacional con base clínica real. 97€.">
+<title>Reconecta — Programa de 4 semanas · Sofía Arenas</title>
+<link rel="stylesheet" href="css/style.css">
+<style>
+/* HERO */
+.rc-hero { display: grid; grid-template-columns: 1fr 1fr; min-height: 94vh; }
+.rc-hero-left { background: var(--black); padding: 80px 60px; display: flex; flex-direction: column; justify-content: flex-end; position: relative; overflow: hidden; }
+.rc-hero-left::before { content: 'RECO\ANECTA'; position: absolute; top: 10px; left: -15px; font-family: var(--font-display); font-size: 130px; font-weight: 900; color: rgba(255,255,255,.025); pointer-events: none; line-height: .9; white-space: pre; }
+.rc-hero-right { background: var(--cream-dark); padding: 80px 60px; display: flex; flex-direction: column; justify-content: center; gap: 20px; }
+.price-big-box { background: var(--black); padding: 36px; }
+.price-big-label { font-size: 10px; letter-spacing: .2em; text-transform: uppercase; color: var(--lila); margin-bottom: 8px; font-weight: 400; }
+.price-big-num { font-family: var(--font-display); font-size: 72px; font-weight: 900; color: var(--white); line-height: 1; margin-bottom: 4px; }
+.price-big-old { font-size: 13px; color: var(--warm-gray); text-decoration: line-through; margin-bottom: 20px; }
+.price-big-cta { display: block; background: var(--lila-dark); color: var(--white); padding: 15px; text-align: center; font-size: 12px; letter-spacing: .12em; text-transform: uppercase; font-weight: 500; transition: background .2s; }
+.price-big-cta:hover { background: var(--lila-mid); }
+.rc-stat { padding: 20px 0; border-bottom: 1px solid var(--cream-mid); display: flex; gap: 16px; align-items: center; }
+.rc-stat:last-of-type { border-bottom: none; }
+.rc-stat-num { font-family: var(--font-display); font-size: 36px; font-weight: 900; color: var(--lila-dark); min-width: 56px; line-height: 1; }
+.rc-stat-text { font-size: 13px; color: var(--warm-gray); line-height: 1.5; font-weight: 300; }
+
+/* DOLOR */
+.dolor { padding: 100px 60px; background: var(--white); display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+.dolor-items { display: flex; flex-direction: column; gap: 0; }
+.dolor-item { display: flex; gap: 16px; align-items: flex-start; padding: 22px 0; border-bottom: 1px solid var(--cream-dark); }
+.dolor-item:last-child { border-bottom: none; }
+.dolor-num { font-family: var(--font-display); font-size: 24px; font-weight: 900; color: var(--lila-dark); min-width: 32px; line-height: 1.3; opacity: .5; }
+.dolor-text { font-size: 14px; color: var(--black-soft); line-height: 1.65; font-weight: 300; }
+
+/* SOFÍA */
+.rc-sofia { background: var(--black); padding: 100px 60px; display: grid; grid-template-columns: 1fr 1.2fr; gap: 80px; align-items: center; }
+.rc-sofia-photo { background: var(--black-soft); aspect-ratio: 3/4; display: flex; align-items: flex-end; padding: 24px; border: 1px solid rgba(184,169,224,.15); position: relative; overflow: hidden; }
+.rc-sofia-photo::before { content: 'SOFÍA'; position: absolute; bottom: -20px; right: -10px; font-family: var(--font-display); font-size: 110px; font-weight: 900; color: rgba(184,169,224,.06); line-height: 1; pointer-events: none; }
+.rc-sofia-label { font-size: 10px; letter-spacing: .15em; text-transform: uppercase; color: var(--lila); font-weight: 400; position: relative; z-index: 1; }
+.rc-cred { background: rgba(255,255,255,.04); padding: 24px; display: flex; flex-direction: column; gap: 12px; margin: 20px 0; }
+.rc-cred-item { display: flex; gap: 10px; align-items: baseline; }
+.rc-cred-dot { width: 4px; height: 4px; background: var(--lila-dark); border-radius: 50%; flex-shrink: 0; margin-top: 8px; }
+.rc-cred-text { font-size: 13px; color: var(--warm-light); line-height: 1.5; font-weight: 300; }
+.rc-quote { border-left: 2px solid var(--lila-dark); padding-left: 18px; }
+.rc-quote-text { font-family: var(--font-italic); font-size: 18px; font-style: italic; color: var(--white); line-height: 1.55; font-weight: 300; }
+
+/* MÓDULOS */
+.modulos { padding: 100px 60px; background: var(--cream); }
+.modulos-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; margin-top: 56px; background: var(--cream-dark); }
+.modulo { background: var(--white); overflow: hidden; transition: background .25s; }
+.modulo:hover { background: var(--lila-light); }
+.modulo-head { padding: 28px 32px 0; }
+.modulo-semana { font-size: 10px; letter-spacing: .18em; text-transform: uppercase; color: var(--lila-dark); font-weight: 500; margin-bottom: 8px; }
+.modulo-titulo { font-family: var(--font-display); font-size: 22px; font-weight: 700; line-height: 1.2; margin-bottom: 10px; }
+.modulo-desc { font-size: 13px; color: var(--warm-gray); line-height: 1.6; font-weight: 300; }
+.modulo-body { padding: 16px 32px 28px; }
+.modulo-items { list-style: none; display: flex; flex-direction: column; gap: 7px; }
+.modulo-items li { font-size: 12px; color: var(--black-soft); padding-left: 14px; position: relative; line-height: 1.5; font-weight: 300; }
+.modulo-items li::before { content: '→'; position: absolute; left: 0; color: var(--lila-dark); font-size: 10px; top: 1px; }
+.modulo-formato { display: inline-block; font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: var(--lila-dark); font-weight: 500; margin-top: 14px; }
+
+/* BONOS */
+.bonos { padding: 80px 60px; background: var(--cream-dark); }
+.bonos-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-top: 48px; }
+.bono-card { background: var(--white); padding: 28px 22px; display: flex; flex-direction: column; gap: 12px; transition: transform .2s; }
+.bono-card:hover { transform: translateY(-4px); }
+.bono-icon { font-size: 28px; }
+.bono-titulo { font-family: var(--font-display); font-size: 17px; font-weight: 700; line-height: 1.2; }
+.bono-desc { font-size: 12px; color: var(--warm-gray); line-height: 1.6; font-weight: 300; flex: 1; }
+
+/* PARA QUIÉN */
+.para-quien { padding: 100px 60px; background: var(--white); display: grid; grid-template-columns: 1.2fr 1fr; gap: 80px; }
+.pq-list { display: flex; flex-direction: column; }
+.pq-item { display: flex; gap: 16px; padding: 22px 0; border-bottom: 1px solid var(--cream-dark); align-items: flex-start; }
+.pq-check { width: 26px; height: 26px; background: var(--lila-dark); display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px; font-size: 13px; color: var(--white); font-weight: 700; }
+.pq-text { font-size: 14px; color: var(--black-soft); line-height: 1.65; font-weight: 300; }
+.pq-text strong { font-weight: 500; }
+.no-es { background: var(--black); padding: 32px; }
+.no-es-title { font-size: 10px; letter-spacing: .18em; text-transform: uppercase; color: var(--lila); margin-bottom: 16px; font-weight: 400; }
+.no-es-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+.no-es-list li { font-size: 13px; color: var(--warm-light); padding-left: 18px; position: relative; line-height: 1.5; font-weight: 300; }
+.no-es-list li::before { content: '✕'; position: absolute; left: 0; color: var(--lila); font-size: 10px; top: 2px; }
+.sofia-note { background: var(--cream-dark); padding: 24px; margin-top: 20px; }
+.sofia-note-q { font-family: var(--font-italic); font-size: 16px; font-style: italic; color: var(--black-soft); line-height: 1.6; font-weight: 300; }
+
+/* TESTIMONIAL */
+.testimonial { background: var(--lila-dark); padding: 80px 60px; text-align: center; }
+.testimonial-quote { font-family: var(--font-italic); font-size: clamp(20px, 3vw, 32px); font-style: italic; color: var(--white); max-width: 680px; margin: 0 auto 20px; line-height: 1.5; font-weight: 300; }
+.testimonial-author { font-size: 11px; letter-spacing: .18em; text-transform: uppercase; color: var(--lila-light); font-weight: 400; }
+
+/* FAQ */
+.faq { padding: 100px 60px; max-width: 720px; margin: 0 auto; }
+.faq-item { border-bottom: 1px solid var(--cream-dark); }
+.faq-q { font-family: var(--font-display); font-size: 18px; font-weight: 700; padding: 24px 0; cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 20px; user-select: none; }
+.faq-q::after { content: '+'; font-family: var(--font-body); font-size: 22px; font-weight: 300; color: var(--lila-dark); flex-shrink: 0; transition: transform .2s; }
+.faq-item.open .faq-q::after { transform: rotate(45deg); }
+.faq-a { font-size: 14px; line-height: 1.75; color: var(--warm-gray); font-weight: 300; max-height: 0; overflow: hidden; transition: max-height .35s ease; }
+.faq-a-inner { padding-bottom: 20px; }
+
+/* CTA FINAL */
+.rc-cta { background: var(--black); padding: 120px 60px; text-align: center; position: relative; overflow: hidden; }
+.rc-cta::before { content: 'RECONECTA'; position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); font-family: var(--font-display); font-size: clamp(60px, 13vw, 160px); font-weight: 900; color: rgba(255,255,255,.025); white-space: nowrap; pointer-events: none; }
+.rc-cta-price-box { display: inline-flex; flex-direction: column; align-items: center; background: var(--lila-dark); padding: 40px 60px; gap: 10px; position: relative; margin: 32px 0; }
+.rc-cta-label { font-size: 10px; letter-spacing: .2em; text-transform: uppercase; color: var(--lila-light); font-weight: 400; }
+.rc-cta-price { font-family: var(--font-display); font-size: 72px; font-weight: 900; color: var(--white); line-height: 1; }
+.rc-cta-old { font-size: 13px; color: rgba(255,255,255,.45); text-decoration: line-through; }
+.rc-cta-btn { display: block; background: var(--white); color: var(--black); padding: 16px 44px; font-size: 12px; letter-spacing: .12em; text-transform: uppercase; font-weight: 500; font-family: var(--font-body); cursor: pointer; border: none; transition: all .2s; margin-top: 6px; width: 100%; text-align: center; }
+.rc-cta-btn:hover { background: var(--black); color: var(--white); }
+.rc-garantia { font-size: 12px; color: var(--warm-gray); position: relative; }
+.rc-garantia strong { color: var(--lila); font-weight: 400; }
+
+@media (max-width: 900px) {
+  .rc-hero { grid-template-columns: 1fr; min-height: auto; }
+  .rc-hero-left { padding: 60px 24px; min-height: 80vh; }
+  .rc-hero-right { padding: 48px 24px; }
+  .dolor { grid-template-columns: 1fr; padding: 72px 24px; gap: 48px; }
+  .rc-sofia { grid-template-columns: 1fr; padding: 72px 24px; gap: 40px; }
+  .modulos { padding: 72px 24px; }
+  .modulos-grid { grid-template-columns: 1fr; }
+  .bonos { padding: 60px 24px; }
+  .bonos-grid { grid-template-columns: 1fr 1fr; }
+  .para-quien { grid-template-columns: 1fr; padding: 72px 24px; gap: 40px; }
+  .testimonial { padding: 60px 24px; }
+  .faq { padding: 60px 24px; }
+  .rc-cta { padding: 80px 24px; }
+  .rc-cta-price-box { padding: 32px 36px; }
+}
+</style>
+</head>
+<body>
+
+<div class="topbar">Precio de lanzamiento · Primeras 50 personas · 97€ en lugar de 147€</div>
+
+<nav>
+  <a href="index.html" class="nav-logo">Sofía <em>Arenas</em></a>
+  <div class="nav-links">
+    <a href="index.html">Inicio</a>
+    <a href="serie.html">La serie</a>
+    <a href="guia.html">Guía gratuita</a>
+    <a href="reconecta.html" class="nav-cta" style="background:var(--lila-dark) !important;">Reconecta — 97€</a>
+  </div>
+  <div class="nav-hamburger"><span></span><span></span><span></span></div>
+</nav>
+
+<!-- TICKER -->
+<div class="ticker">
+  <div class="ticker-inner">
+    <span class="ticker-item">4 semanas</span><span class="ticker-item">Teoría del Apego</span><span class="ticker-item">Trauma bonding</span><span class="ticker-item">Teoría Polivagal</span><span class="ticker-item">Earned Security</span><span class="ticker-item">Base clínica real</span><span class="ticker-item">Bowlby · Porges · Tatkin</span><span class="ticker-item">97€ · Acceso permanente</span>
+    <span class="ticker-item">4 semanas</span><span class="ticker-item">Teoría del Apego</span><span class="ticker-item">Trauma bonding</span><span class="ticker-item">Teoría Polivagal</span><span class="ticker-item">Earned Security</span><span class="ticker-item">Base clínica real</span><span class="ticker-item">Bowlby · Porges · Tatkin</span><span class="ticker-item">97€ · Acceso permanente</span>
+  </div>
+</div>
+
+<!-- HERO -->
+<section class="rc-hero">
+  <div class="rc-hero-left">
+    <div class="hero-tag fade-up" style="color:var(--lila);font-size:10px;letter-spacing:.22em;text-transform:uppercase;margin-bottom:20px;font-weight:400;">Programa de 4 semanas · @sofiarenas.psi</div>
+    <h1 class="section-title fade-up fade-up-d1" style="color:var(--white);font-size:clamp(52px,7vw,92px);line-height:.9;margin-bottom:28px;">Re<em>co</em><br>nec<br>ta.</h1>
+    <p style="font-size:15px;color:var(--warm-light);line-height:1.75;max-width:380px;margin-bottom:20px;font-weight:300;" class="fade-up fade-up-d2">Entiende de dónde viene tu patrón relacional, qué lo activa, y cuál es el primer movimiento real para cambiarlo.</p>
+    <p style="font-size:13px;color:var(--warm-gray);line-height:1.6;max-width:360px;margin-bottom:44px;font-weight:300;" class="fade-up fade-up-d3">Sin psicología de autoayuda. Sin promesas vacías. Con la base científica que cada afirmación merece.</p>
+    <div class="fade-up fade-up-d4" style="display:flex;gap:14px;flex-wrap:wrap;">
+      <a href="#comprar" class="btn btn-lila">Quiero entrar — 97€</a>
+      <a href="guia.html" class="btn btn-outline" style="color:rgba(255,255,255,.6);border-color:rgba(255,255,255,.2);">Guía gratuita primero</a>
+    </div>
+  </div>
+  <div class="rc-hero-right fade-up">
+    <div class="price-big-box">
+      <div class="price-big-label">Precio de lanzamiento</div>
+      <div class="price-big-num">97€</div>
+      <div class="price-big-old">Precio regular: 147€</div>
+      <a href="#comprar" class="price-big-cta">Acceso inmediato</a>
+    </div>
+    <div class="rc-stat"><div class="rc-stat-num">4</div><div class="rc-stat-text">semanas de trabajo real. Un módulo por semana, ritmo sostenible.</div></div>
+    <div class="rc-stat"><div class="rc-stat-num">12+</div><div class="rc-stat-text">horas entre vídeos, audios y material de trabajo concreto.</div></div>
+    <div class="rc-stat"><div class="rc-stat-num">∞</div><div class="rc-stat-text">Acceso permanente. Sin suscripción. Sin fecha de caducidad.</div></div>
+  </div>
+</section>
+
+<!-- DOLOR -->
+<section class="dolor">
+  <div class="fade-up">
+    <span class="section-tag">¿Te reconoces en esto?</span>
+    <div class="section-divider"></div>
+    <h2 class="section-title">Llevas tiempo<br>sabiendo que hay<br>un <em>patrón.</em></h2>
+    <p class="section-sub">No es mala suerte. No eres "demasiado intenso/a". Tienes un sistema relacional aprendido que opera en automático. Sin el lenguaje para nombrarlo, no hay forma de interrumpirlo.</p>
+  </div>
+  <div class="dolor-items fade-up fade-up-d1">
+    <div class="dolor-item"><div class="dolor-num">01</div><div class="dolor-text">Terminas relaciones y vuelves, aunque sepas que no funciona.</div></div>
+    <div class="dolor-item"><div class="dolor-num">02</div><div class="dolor-text">Cuando alguien te trata bien, algo en ti desconfía o se aburre.</div></div>
+    <div class="dolor-item"><div class="dolor-num">03</div><div class="dolor-text">Te preguntas por qué siempre acabas con el mismo tipo de persona.</div></div>
+    <div class="dolor-item"><div class="dolor-num">04</div><div class="dolor-text">Ya has leído sobre apego — y aun así no terminas de entender el tuyo.</div></div>
+    <div class="dolor-item"><div class="dolor-num">05</div><div class="dolor-text">Sabes que hay algo tuyo en esto, pero no tienes las palabras exactas.</div></div>
+  </div>
+</section>
+
+<!-- SOFÍA -->
+<section class="rc-sofia">
+  <div class="rc-sofia-photo fade-up"><span class="rc-sofia-label">Sofía Arenas · @sofiarenas.psi</span></div>
+  <div class="fade-up fade-up-d1">
+    <span class="section-tag" style="color:var(--lila);">Quién hay detrás</span>
+    <h2 class="section-title" style="color:var(--white);">No es<br><em>autoayuda.</em><br>Es clínica.</h2>
+    <p style="font-size:15px;color:var(--warm-light);line-height:1.75;font-weight:300;margin-bottom:16px;">Soy Sofía Arenas, psicóloga clínica especializada en apego. Llevo años trabajando con personas que repiten los mismos patrones sin entender por qué.</p>
+    <div class="rc-cred">
+      <div class="rc-cred-item"><div class="rc-cred-dot"></div><div class="rc-cred-text">Psicóloga Clínica — Universidad de los Andes, Bogotá</div></div>
+      <div class="rc-cred-item"><div class="rc-cred-dot"></div><div class="rc-cred-text">Máster en Psicología de Pareja y Familia — UCM Madrid</div></div>
+      <div class="rc-cred-item"><div class="rc-cred-dot"></div><div class="rc-cred-text">Especialización en Teoría del Apego Adulto y EMDR para trauma relacional</div></div>
+    </div>
+    <div class="rc-quote">
+      <div class="rc-quote-text">"Reconecta no te va a arreglar. Te va a dar el lenguaje para entenderte. Y eso es lo que hace posible que algo cambie."</div>
+    </div>
+  </div>
+</section>
+
+<!-- MÓDULOS -->
+<section class="modulos">
+  <div class="fade-up" style="text-align:center;max-width:520px;margin:0 auto;">
+    <span class="section-tag">El programa</span>
+    <h2 class="section-title">4 semanas.<br>4 <em>preguntas</em> que<br>cambian todo.</h2>
+    <p class="section-sub" style="margin:0 auto;">Cada semana tiene un vídeo, un PDF de trabajo y una tarea. El vídeo enseña. El PDF aplica. La tarea ancla.</p>
+  </div>
+  <div class="modulos-grid">
+    <div class="modulo fade-up">
+      <div class="modulo-head"><div class="modulo-semana">Semana 1</div><div class="modulo-titulo">Tu mapa — de dónde viene tu patrón</div><div class="modulo-desc">Cómo se forma el apego y por qué sigue activo en el adulto.</div></div>
+      <div class="modulo-body"><ul class="modulo-items"><li>Los 4 estilos y cómo se activan en pareja</li><li>Tu modelo interno de trabajo (Bowlby)</li><li>Ejercicio: la historia de mis primeras relaciones</li><li>Tarea: identifica 3 momentos donde el patrón se activó</li></ul><span class="modulo-formato">▶ Vídeo 18 min · PDF de trabajo</span></div>
+    </div>
+    <div class="modulo fade-up fade-up-d1">
+      <div class="modulo-head"><div class="modulo-semana">Semana 2</div><div class="modulo-titulo">Tus disparadores — qué te activa y por qué</div><div class="modulo-desc">La diferencia entre reacción automática y respuesta consciente.</div></div>
+      <div class="modulo-body"><ul class="modulo-items"><li>Los 5 disparadores más comunes según tu apego</li><li>Cómo el sistema nervioso lee amenaza donde no la hay</li><li>Introducción a la regulación polivagal (Porges)</li><li>Ejercicio: mapa de mis disparadores</li></ul><span class="modulo-formato">▶ Vídeo 20 min · PDF de trabajo</span></div>
+    </div>
+    <div class="modulo fade-up">
+      <div class="modulo-head"><div class="modulo-semana">Semana 3</div><div class="modulo-titulo">Tus relaciones — el patrón en acción</div><div class="modulo-desc">Por qué elegimos a quien elegimos.</div></div>
+      <div class="modulo-body"><ul class="modulo-items"><li>La trampa ansioso-evitativo en detalle</li><li>Trauma bonding: neurología y primer paso real</li><li>Cómo comunicar necesidades sin escalar</li><li>Ejercicio: análisis de mis últimas 3 relaciones</li></ul><span class="modulo-formato">▶ Vídeo 17 min · PDF de trabajo</span></div>
+    </div>
+    <div class="modulo fade-up fade-up-d1">
+      <div class="modulo-head"><div class="modulo-semana">Semana 4</div><div class="modulo-titulo">Tu nuevo punto de partida</div><div class="modulo-desc">El apego seguro adquirido existe. La neuroplasticidad lo respalda.</div></div>
+      <div class="modulo-body"><ul class="modulo-items"><li>Earned security: evidencia científica del cambio</li><li>Las 6 señales reales de que estás avanzando</li><li>Hábitos de autoobservación relacional</li><li>Ejercicio final: carta a tu yo relacional</li></ul><span class="modulo-formato">▶ Vídeo 15 min · PDF de trabajo</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- BONOS -->
+<section class="bonos">
+  <div class="fade-up" style="text-align:center;max-width:480px;margin:0 auto;">
+    <span class="section-tag">Incluido en el programa</span>
+    <h2 class="section-title">Los bonos<br>que resuelven las <em>dudas.</em></h2>
+  </div>
+  <div class="bonos-grid fade-up">
+    <div class="bono-card"><div class="bono-icon">🎧</div><div class="bono-titulo">Audio de regulación</div><div class="bono-desc">"Antes de una conversación difícil." 12 min. Práctica basada en Teoría Polivagal. El más escuchado del programa.</div></div>
+    <div class="bono-card"><div class="bono-icon">📋</div><div class="bono-titulo">Guía de conversación</div><div class="bono-desc">"Cómo decir lo que necesitas sin perder la calma." 8 páginas. Frases reales, situaciones concretas.</div></div>
+    <div class="bono-card"><div class="bono-icon">🎬</div><div class="bono-titulo">El caso de Bruno</div><div class="bono-desc">Análisis clínico completo. 20 min. Solo disponible en el programa. Conecta la serie con el contenido.</div></div>
+    <div class="bono-card"><div class="bono-icon">📖</div><div class="bono-titulo">Lecturas con contexto</div><div class="bono-desc">Attached, El cuerpo lleva la cuenta, Wired for Love — con nota de Sofía sobre cuándo leer cada uno.</div></div>
+  </div>
+</section>
+
+<!-- PARA QUIÉN -->
+<section class="para-quien">
+  <div class="fade-up">
+    <span class="section-tag">¿Es para ti?</span>
+    <h2 class="section-title" style="margin-bottom:32px;">Este programa<br>es para ti <em>si…</em></h2>
+    <div class="pq-list">
+      <div class="pq-item"><div class="pq-check">✓</div><div class="pq-text">Llevas tiempo con las mismas preguntas sobre tus relaciones <strong>sin respuestas concretas.</strong></div></div>
+      <div class="pq-item"><div class="pq-check">✓</div><div class="pq-text">Ya has leído sobre apego pero <strong>no terminas de aplicarlo a tu situación.</strong></div></div>
+      <div class="pq-item"><div class="pq-check">✓</div><div class="pq-text">Quieres entender <strong>de dónde vienen tus reacciones</strong> antes de seguir cambiando de pareja.</div></div>
+      <div class="pq-item"><div class="pq-check">✓</div><div class="pq-text">Buscas <strong>base clínica real,</strong> no técnicas de comunicación superficiales.</div></div>
+      <div class="pq-item"><div class="pq-check">✓</div><div class="pq-text">Puedes comprometerte a <strong>4 semanas de trabajo activo,</strong> no pasivo.</div></div>
+    </div>
+  </div>
+  <div class="fade-up fade-up-d1">
+    <h3 style="font-family:var(--font-display);font-size:22px;font-weight:700;margin-bottom:16px;">Esto <em style="font-style:italic;color:var(--lila-dark);">no</em> es…</h3>
+    <div class="no-es">
+      <div class="no-es-title">Lo que Reconecta no es</div>
+      <ul class="no-es-list">
+        <li>Un curso para "conquistar" o "retener" a alguien</li>
+        <li>Psicología de autoayuda con promesas vacías</li>
+        <li>Un sustituto de terapia individual</li>
+        <li>Técnicas de comunicación sin base clínica</li>
+        <li>Contenido para consumir pasivamente</li>
+      </ul>
+    </div>
+    <div class="sofia-note">
+      <div class="sofia-note-q">"Este programa no te va a arreglar. Te va a dar el lenguaje para entenderte. Y eso es exactamente lo que hace posible que algo cambie."</div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIAL -->
+<section class="testimonial">
+  <blockquote class="testimonial-quote">"Llevaba años en terapia y nadie me había explicado el apego ansioso de esta manera. En una semana entendí por qué siempre elijo lo mismo."</blockquote>
+  <div class="testimonial-author">— M.R., 31 años · Madrid</div>
+</section>
+
+<!-- FAQ -->
+<section class="faq">
+  <div class="fade-up" style="text-align:center;margin-bottom:48px;">
+    <span class="section-tag">Preguntas frecuentes</span>
+    <h2 class="section-title">Lo que<br>necesitas <em>saber.</em></h2>
+  </div>
+  <div class="faq-item fade-up"><div class="faq-q">¿Necesito saber algo de psicología para empezar?</div><div class="faq-a"><div class="faq-a-inner">No. El módulo 1 establece toda la base desde cero. Si descargaste la guía gratuita, llegas con ventaja — pero no es obligatorio.</div></div></div>
+  <div class="faq-item fade-up"><div class="faq-q">¿Cuánto tiempo necesito por semana?</div><div class="faq-a"><div class="faq-a-inner">Entre 60 y 90 minutos. El vídeo dura entre 15 y 20 minutos. El resto es el trabajo en el PDF y la tarea semanal, que puedes hacer cuando quieras.</div></div></div>
+  <div class="faq-item fade-up"><div class="faq-q">¿El acceso caduca?</div><div class="faq-a"><div class="faq-a-inner">No. Acceso permanente, incluyendo actualizaciones futuras del programa.</div></div></div>
+  <div class="faq-item fade-up"><div class="faq-q">¿Esto reemplaza a la terapia?</div><div class="faq-a"><div class="faq-a-inner">No, y Reconecta no lo pretende. Es un primer paso estructurado. El módulo 4 incluye una guía sobre cuándo y cómo buscar acompañamiento terapéutico.</div></div></div>
+  <div class="faq-item fade-up"><div class="faq-q">¿Hay garantía de devolución?</div><div class="faq-a"><div class="faq-a-inner">Sí. 7 días de garantía completa sin preguntas. Si en los primeros 7 días no es para ti, te devuelvo el importe íntegro.</div></div></div>
+</section>
+
+<!-- CTA FINAL -->
+<section class="rc-cta" id="comprar">
+  <span class="section-tag" style="color:var(--lila);position:relative;">Es el momento</span>
+  <h2 class="section-title fade-up" style="color:var(--white);max-width:600px;margin:0 auto 20px;position:relative;">Si llevas tiempo<br>con las mismas<br><em>preguntas…</em></h2>
+  <p style="font-size:16px;color:var(--warm-light);max-width:480px;margin:0 auto;line-height:1.75;font-weight:300;position:relative;" class="fade-up fade-up-d1">Este programa no promete que todo cambie en 4 semanas. Promete que tendrás el lenguaje para entenderte. Y eso cambia todo lo demás.</p>
+  <div class="rc-cta-price-box fade-up fade-up-d2">
+    <div class="rc-cta-label">Precio de lanzamiento · Primeras 50 personas</div>
+    <div class="rc-cta-price">97€</div>
+    <div class="rc-cta-old">Precio regular: 147€</div>
+    <!-- REEMPLAZA # con tu link de Hotmart cuando lo tengas -->
+    <a href="#" class="rc-cta-btn">Acceder a Reconecta ahora</a>
+  </div>
+  <div class="rc-garantia fade-up">Acceso inmediato · Permanente · <strong>Garantía 7 días sin preguntas</strong></div>
+</section>
+
+<footer>
+  <div class="footer-top">
+    <div><div class="footer-logo">Sofía <em>Arenas</em></div><div class="footer-tagline">Psicóloga especializada en apego y vínculos emocionales. Máster UCM Madrid.</div></div>
+    <div><div class="footer-col-title">Contenido</div><div class="footer-col-links"><a href="serie.html">La consulta de mi novio</a><a href="guia.html">Guía gratuita</a><a href="reconecta.html">Reconecta</a></div></div>
+    <div><div class="footer-col-title">Legal</div><div class="footer-col-links"><a href="privacidad.html">Política de privacidad</a><a href="aviso.html">Aviso legal</a><a href="cookies.html">Cookies</a></div></div>
+  </div>
+  <div class="footer-bottom"><div class="footer-copy">© 2025 Sofía Arenas Montoya · Todos los derechos reservados</div><div class="footer-ig">@sofiarenas.psi</div></div>
+</footer>
+
+<script src="js/main.js"></script>
+</body>
+</html>
